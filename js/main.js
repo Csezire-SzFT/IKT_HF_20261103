@@ -42,7 +42,13 @@ const schedules = {
       {start: 1, end: 4, subject: "ITA-1"},
       {Start: 5, end: 8, subject: "ITA-2"},
    ],
-
+   "2026-11-11": [
+      {start: 11, end: 14, subject: "IKT"},
+   ],
+   "2026-11-14": [
+      {start: 1, end: 4, subject: "ITA-1"},
+      {Start: 5, end: 8, subject: "ITA-2"},
+   ],
 
 
 
