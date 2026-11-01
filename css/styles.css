@@ -1,6 +1,115 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   border-radius: 0.5vw;
+   color: royalblue
 }
 
+main {
+   background-image: url("../images/alexa-williams-unsplash.jpg");
+   background-size: cover;        /* kitölti a területet, arányosan nagyít/vág */
+   background-position: center;   /* a kép közepe mindig látszik */
+   background-repeat: no-repeat;
+   display: grid;
+   grid-template-columns: 20vw 60vw 20vw;
+   grid-template-rows: 5vh 5vh 85vh 5vh;
+   grid-template-areas: "grid-head grid-head grid-head"
+                        "grid-nav grid-nav grid-nav"
+                        "grid-lside grid-art grid-rside"
+                        "grid-foot grid-foot grid-foot";                 
+}
+
+header {
+   grid-area: grid-head;
+   align-content: center;
+   text-align: center;
+}
+
+nav {
+   grid-area: grid-nav;
+   margin: 0vh 20vw;
+   display: grid;
+   grid-template-columns: 16vw 6vw 16vw 6vw 16vw;
+   grid-template-rows: 5vh;
+   grid-template-areas: "date-prev btn-prev date-current btn-next date-next";
+   align-items: center;
+   text-align: center;  
+   
+}
+
+.date-current {
+   font-weight: bold;
+}
+
+article {   
+   grid-area: grid-art;
+   display: grid;
+}
+
+.article-timetable {
+   display: grid;
+   grid-template-rows: 60vh 25vh;
+   grid-template-areas: "timetable"
+                        "links";
+}
+.timetable-content {
+   grid-area: timetable;
+}
+
+.links-content {
+   grid-area: links;
+}
+
+.article-error {
+   display: none;
+}
+
+.aside-left {
+   grid-area: grid-lside;
+}
+
+.aside-right {
+   grid-area: grid-rside;
+}
+footer {
+   grid-area: grid-foot;
+   padding: 0.2vw 1vw;
+   text-align: right;
+   font-weight: bold;
+}
+
+h1, nav, footer {
+   font-size: clamp(0.875rem, min(60cqh, 4.5cqw), 1.6rem);   
+}
+
+
+/* Reszponzív megoldás: álló, kivéve mobil eszközök */
+@media (orientation: portrait) or (max-width: 768px) {
+   main {
+      grid-template-columns: 100vw;
+      grid-template-rows: 5vh 5vh 80vh 10vh;
+      grid-template-areas: "grid-head"
+                           "grid-nav"
+                           "grid-art"
+                           "grid-foot";
+   }
+   nav {
+      margin: 0;
+   }
+
+   .aside-left, .aside-right {
+      display: none;
+   }
+}
+
+@media (max-width: 500px) {
+
+
+   .article-timetable{
+      display: none;
+   }   
+   .article-error {
+      display: block;
+   }
+}

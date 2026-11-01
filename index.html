@@ -7,22 +7,43 @@
       <link rel="stylesheet" href="css/styles.css" type="text/css"> 
    </head>
    <body>
-      <header>
-      </header>
       <main>
+         <header>
+            <h1>Órarend (őszi szünet projekt munka)</h1>
+         </header>
          <nav>
+            <time id="date-prev" class="date-side"></time>
+            <button type="button" id="btn-prev" class="arrow" aria-label="Előző nap">&#9664;</button>
+            <time id="date-current" class="date-current"></time>
+            <button type="button" id="btn-next" class="arrow" aria-label="Következő nap">&#9654;</button>
+            <time id="date-next" class="date-side"></time>
+         </nav>
+         <aside class="aside-left">
+            <h2>Aside</h2>
+         </aside>
 
-         </nav>  
          <article>
-
+            <div class="article-timetable">
+               <div class="timetable-content">
+                  <h2>Timetable Article</h2>
+               </div>
+               <div class="links-content">
+                  <h2>Links</h2>
+               </div>
+            </div>
+            <div class="article-error">
+               <h2>Error</h2>
+            </div>
          </article>
 
-         <aside> 
-            
+         <aside class="aside-right">
+            <h2>Aside Right</h2>
          </aside> 
-      </main>
-      <footer>
 
-      </footer>
+         <footer> 
+            <p>Kép forrása: Unsplash (unsplash.com), az Unsplash License alapján. Fotó: Alexa Williams</p>
+         </footer>
+      </main>
+      <script src="js/main.js"></script>
    </body>
 </html>
