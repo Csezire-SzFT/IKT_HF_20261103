@@ -7,6 +7,7 @@ const subjects = {
    PA: "Programozási alapok"
 };
 
+// Csengetést rend
 const ceremonies = [
    null, 
    {start: "08:00", end: "08:45"}, // 1. óra
@@ -33,7 +34,14 @@ const links = {
    PA: ["https://example.com/pa"]
 };
 
-const schedules = {}
+const schedules = {
+   "2026-11-04": [
+      {start: 11, end: 14, subject: "PA"},
+   ],
+   "2026-11-07": [
+      {start: 1, end: 4, subject: "ITA-1"},
+      {Start: 5, end: 8, subject: "ITA-2"},
+   ],
 
 
 
