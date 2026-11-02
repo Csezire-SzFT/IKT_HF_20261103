@@ -2,8 +2,8 @@
    margin: 0;
    padding: 0;
    box-sizing: border-box;
-   border-radius: 0.5vw;
-   color: royalblue;
+   color:#573000;
+   text-shadow: 2px 0 0.0vw #FBC85B;
 }
 
 main {
@@ -12,35 +12,39 @@ main {
    background-position: center;   /* a kép közepe mindig látszik */
    background-repeat: no-repeat;
    display: grid;
-   grid-template-columns: 20vw 60vw 20vw;
-   grid-template-rows: 5vh 5vh 85vh 5vh;
+   grid-template-columns: 1fr 3fr 1fr;
    grid-template-areas: "grid-head grid-head grid-head"
                         "grid-nav grid-nav grid-nav"
                         "grid-lside grid-art grid-rside"
-                        "grid-foot grid-foot grid-foot";                 
+                        "grid-foot grid-foot grid-foot";
+   min-height: 100dvh;
+   grid-template-rows: auto auto 1fr auto;                                         
 }
 
 header {
    grid-area: grid-head;
    align-content: center;
    text-align: center;
+   font-size: clamp(1.75rem, 0.607rem + 1.786vw, 2.75rem);
 }
 
 nav {
    grid-area: grid-nav;
-   margin: 0vh 20vw;
+   margin: 0 20vw;
+   border: 3px solid #FBC85B;
+   border-radius: 10px;
+   padding: 10px;
    display: grid;
-   grid-template-columns: 16vw 6vw 16vw 6vw 16vw;
-   grid-template-rows: 5vh;
-   grid-template-areas: "date-prev btn-prev date-current btn-next date-next";
+   grid-template-columns: 5fr 1fr 8fr 1fr 5fr;
    align-items: center;
    text-align: center;  
-   
+   font-size: clamp(1.375rem, 0.661rem + 1.116vw, 2rem);
 }
 
 .date-current {
    font-weight: bold;
 }
+
 
 article {   
    grid-area: grid-art;
@@ -49,21 +53,87 @@ article {
 
 .article-timetable {
    display: grid;
-   grid-template-rows: 60vh 25vh;
-   grid-template-areas: "timetable"
-                        "links";
-}
-.timetable-content {
-   grid-area: timetable;
+   grid-template-rows: auto auto;
+   grid-template-areas: "cursetable"
+                        "curselinks";
+   font-size: clamp(1.125rem, 0.696rem + 0.670vw, 1.5rem);
 }
 
-.links-content {
-   grid-area: links;
+
+.timetable-content {
+   grid-area: cursetable;
 }
+
+#timetable {
+   width: 100%;
+   table-layout: fixed;
+/*   border-collapse: collapse;
+   border: 2px solid; */
+   font-weight: bold;
+}
+
+#timetable th, #timetable td {
+/*   border: 1px solid; */
+   border-bottom: 2px solid;
+   padding: 1.0vh 1.0vw;
+}
+
+#timetable .cursenumber {
+   width: 10%;
+   text-align: right;
+}
+
+#timetable td.cursenumber::after {
+   content: "."
+}
+
+#timetable .cursetime {
+   width: 20%;
+   text-align: center;
+   font-variant-numeric: tabular-nums;
+}
+
+
+.links-content {
+   grid-area: curselinks;
+}
+
 
 .article-error {
    display: none;
 }
+
+.error-box {
+   background-color: gold;
+   display: grid;
+   max-width: 90%;
+   border: 3px solid black;
+   border-radius: 10px;
+   gap: 1rem;
+   padding: 1rem;
+   justify-items: center;
+   text-align: center;
+}
+
+.error-icon {
+   display: grid;
+   place-items: center;
+   background-color: goldenrod;
+   width: 3rem;
+   height: 3rem;
+   border-radius: 50%;
+   color: black;
+   font-size: 2rem;
+   font-weight: bold;
+   text-shadow: none;
+}
+
+.error-text {
+   font-size: clamp(1rem, 0.714rem + 0.446vw, 1.25rem);
+   font-weight: bold;
+   color: black;
+}
+
 
 .aside-left {
    grid-area: grid-lside;
@@ -72,23 +142,26 @@ article {
 .aside-right {
    grid-area: grid-rside;
 }
+
+
 footer {
    grid-area: grid-foot;
-   padding: 0.2vw 1vw;
-   text-align: right;
+   padding: 10px;
+   font-size: clamp(0.875rem, 0.732rem + 0.223vw, 1rem);
    font-weight: bold;
+   text-shadow: none;
 }
 
-h1, nav, footer {
-   font-size: clamp(0.875rem, min(60cqh, 4.5cqw), 1.6rem);   
+
+h1 {
+   font-size: clamp(1.75rem,  0.607rem + 1.786vw, 2.75rem);   
 }
 
 
 /* Reszponzív megoldás: álló, kivéve mobil eszközök */
-@media (orientation: portrait) or (max-width: 768px) {
+@media (orientation: portrait), (max-width: 960px) {
    main {
-      grid-template-columns: 100vw;
-      grid-template-rows: 5vh 5vh 80vh 10vh;
+      grid-template-columns: 1fr;
       grid-template-areas: "grid-head"
                            "grid-nav"
                            "grid-art"
@@ -103,13 +176,16 @@ h1, nav, footer {
    }
 }
 
-@media (max-width: 500px) {
-
-
-   .article-timetable{
+@media (max-width: 640px) {
+   nav, .article-timetable{
       display: none;
    }   
+   
    .article-error {
+      display: grid;
+      place-items: center;
+   }
+   .impressum {
       display: block;
    }
 }

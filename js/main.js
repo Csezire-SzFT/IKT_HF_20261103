@@ -1,4 +1,3 @@
-ain · JS
 // Tantárgyak
 const subjects = {
    IKT1: "IKT projekt munka I.: webprogramozás",
@@ -9,7 +8,7 @@ const subjects = {
 };
  
 // Csengetést rend
-const ceremonies = [
+const schedules = [
    null, 
    { start: "08:00", end: "08:45"}, // 1. óra
    { start: "08:55", end: "09:40"}, // 2. óra
@@ -35,7 +34,7 @@ const links = {
    PA: ["https://example.com/pa"]
 };
  
-const schedules = {
+const curses = {
    "2026-09-05": [
       { start: 1, end: 4, subject: "ITA1" },
       { start: 5, end: 8, subject: "IKT1" },
@@ -285,49 +284,95 @@ const schedules = {
    ],
 };
 
-let currentDate = new Date();
+const dates = Object.keys(curses).sort();
 
-// Megjelenítéshez: 2026. 11. 01.
-function formatDate(d) {
-   return d.toLocaleDateString('hu-HU');
+
+// Az első index, ahol dates[i] >= aktuális dátum (bináris keresés).
+// Ha minden dátum korábbi, dates.length-et ad → nincs jövőbeli nap.
+function firstDate(DateParameter) {
+   let bottomIndex = 0, topIndex = dates.length;
+   while (bottomIndex < topIndex) {
+      const middleIndex = Math.floor((bottomIndex + topIndex) / 2);
+      if (dates[middleIndex] < DateParameter) bottomIndex = middleIndex + 1; else topIndex = middleIndex;
+   }
+   return bottomIndex;
 }
 
 // A datetime attribútumhoz: 2026-11-01 (helyi idő szerint)
-function toIsoDate(d) {
-   const y = d.getFullYear();
-   const m = String(d.getMonth() + 1).padStart(2, '0');
-   const day = String(d.getDate()).padStart(2, '0');
-   return `${y}-${m}-${day}`;
+function toIsoDate(DateParameter) {
+   const currentYear = DateParameter.getFullYear();
+   const currentMonth = String(DateParameter.getMonth() + 1).padStart(2, '0');
+   const currentDay = String(DateParameter.getDate()).padStart(2, '0');
+   return `${currentYear}-${currentMonth}-${currentDay}`;
 }
 
-function addDays(d, n) {
-   const result = new Date(d);
-   result.setDate(result.getDate() + n);
-   return result;
-}
+// Indulás: a mai naptól számított legközelebbi tanítási nap
+let dateIndex = firstDate(toIsoDate(new Date()));
 
 // Egy <time> elem kitöltése: szöveg + datetime attribútum
-function setTime(id, d) {
-   const el = document.getElementById(id);
-   el.textContent = formatDate(d);
-   el.dateTime = toIsoDate(d);
-}
+function setTimeElementOrEmpty(elementId, dateISO) {
+   const elementContent = document.getElementById(elementId);
+   if (dateISO) {
+      elementContent.textContent = dateISO.replaceAll('-', '. ') + '.' ;
+      elementContent.dateTime = dateISO; 
+      }
+   else {
+      elementContent.textContent = '———' ;
+      elementContent.removeAttribute('datetime'); 
+      }
+   }
 
 function render() {
-   setTime('date-prev',    addDays(currentDate, -1));
-   setTime('date-current', currentDate);
-   setTime('date-next',    addDays(currentDate, 1));
+   const buttonPrev = document.getElementById('button-prev');
+   const buttonNext = document.getElementById('button-next');
+
+   // Gombok letiltása, ha szükséges - első és utolsó dátumnál)
+   buttonPrev.disabled = (dateIndex <= 0);
+   buttonNext.disabled = (dateIndex >= (dates.length - 1));
+
+   // Ha nincs több jövőbeli nap, akkor üzenet kiírása
+   if (dateIndex >= dates.length) {
+      // xxxx - üzenet elhelyezése a megfelelő helyen: "Nincs több tanítási nap"
+      // xxxx - Órarend terület ürítése, stb.
+      return;
+   }
+
+   setTimeElementOrEmpty('date-prev', dates[dateIndex - 1]);
+   setTimeElementOrEmpty('date-current', dates[dateIndex]);
+   setTimeElementOrEmpty('date-next', dates[dateIndex + 1]);
    // ide jöhet az órarend frissítése az aktuális dátum alapján
+
+   const tableBody = document.querySelector('#timetable tbody');
+   const daycurses = curses[dates[dateIndex]] ?? [];
+   tableBody.replaceChildren();
+   daycurses.forEach(curseElement => {
+      for (let period = curseElement.start; period <= curseElement.end; period++) {
+      const tableRecord = tableBody.insertRow();
+
+      const tableRecordNumber = tableRecord.insertCell();
+      tableRecordNumber.className = "cursenumber";
+      tableRecordNumber.textContent = period;
+
+      const tableRecordTime = tableRecord.insertCell();
+      tableRecordTime.className = "cursetime";
+      tableRecordTime.textContent = `${schedules[period].start}–${schedules[period].end}`;
+
+      const tableRecordName = tableRecord.insertCell();
+      tableRecordName.className = "cursename";
+      tableRecordName.textContent = subjects[curseElement.subject];
+    }
+  });
 }
 
-document.getElementById('btn-prev').addEventListener('click', () => {
-   currentDate = addDays(currentDate, -1);
-   render();
+
+document.getElementById('button-prev').addEventListener('click', () => {
+   if (dateIndex > 0) { 
+      dateIndex--; render(); }
 });
 
-document.getElementById('btn-next').addEventListener('click', () => {
-   currentDate = addDays(currentDate, 1);
-   render();
+document.getElementById('button-next').addEventListener('click', () => {
+   if (dateIndex < dates.length - 1) { 
+      dateIndex++; render(); }
 });
 
 render();

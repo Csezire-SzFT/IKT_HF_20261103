@@ -4,18 +4,18 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Czitler Sándor</title>
-      <link rel="stylesheet" href="css/styles.css" type="text/css"> 
+      <link rel="stylesheet" href="css/styles.css"> 
    </head>
    <body>
       <main>
          <header>
-            <h1>Órarend (őszi szünet projekt munka)</h1>
+            <h1>Órarend (őszi szünet projekt munka)</h1>            
          </header>
          <nav>
             <time id="date-prev" class="date-side"></time>
-            <button type="button" id="btn-prev" class="arrow" aria-label="Előző nap">&#9664;</button>
+            <button type="button" id="button-prev" class="arrow" aria-label="Előző nap">&#9664;</button>
             <time id="date-current" class="date-current"></time>
-            <button type="button" id="btn-next" class="arrow" aria-label="Következő nap">&#9654;</button>
+            <button type="button" id="button-next" class="arrow" aria-label="Következő nap">&#9654;</button>
             <time id="date-next" class="date-side"></time>
          </nav>
          <aside class="aside-left">
@@ -25,14 +25,29 @@
          <article>
             <div class="article-timetable">
                <div class="timetable-content">
-                  <h2>Timetable Article</h2>
+                  <table id="timetable">
+                     <thead>
+                        <tr>
+                           <th class="cursenumber">#</th>
+                           <th class="cursetime">Időpont</th>
+                           <th class="cursename">Tantárgy</th>
+                        </tr>
+                     </thead>
+                     <tbody></tbody>
+                  </table>   
                </div>
                <div class="links-content">
                   <h2>Links</h2>
                </div>
             </div>
             <div class="article-error">
-               <h2>Error</h2>
+               <div class="error-box">
+                  <span class="error-icon" aria-hidden="true">!</span>
+                  <p class="error-text">
+                     Az órarend ezen a képernyőméreten nem jeleníthető meg.<br>
+                     Kérjük nyisd meg nagyobb kijelzőn!
+                  </p>
+               </div>
             </div>
          </article>
 
@@ -41,7 +56,10 @@
          </aside> 
 
          <footer> 
-            <p>Kép forrása: Unsplash (unsplash.com), az Unsplash License alapján. Fotó: Alexa Williams</p>
+            <p>
+               <span class="impressum">Kép forrása: Unsplash (unsplash.com), az Unsplash License alapján.</span>
+               <span class="impressum">Fotó: Alexa Williams</span>
+            </p>
          </footer>
       </main>
       <script src="js/main.js"></script>
