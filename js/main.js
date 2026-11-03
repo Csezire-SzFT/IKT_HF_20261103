@@ -378,23 +378,3 @@ document.getElementById('button-next').addEventListener('click', () => {
 render();
 
 
-
-
-
-
-// --- FEJLESZTÉSHEZ: méretkijelző, élesítés előtt töröld! ---
-const sizeInfo = document.createElement('div');
-sizeInfo.style.cssText =
-   'position:fixed; bottom:0; right:0; z-index:9999;' +
-   'background:black; color:white; text-shadow:none;' +
-   'font:14px monospace; padding:4px 8px;';
-document.body.appendChild(sizeInfo);
-
-function showSize() {
-   sizeInfo.textContent =
-      `${window.innerWidth} × ${window.innerHeight} px` +
-      ` | DPR: ${window.devicePixelRatio}`;
-}
-
-window.addEventListener('resize', showSize);
-showSize();

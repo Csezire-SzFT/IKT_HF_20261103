@@ -188,7 +188,7 @@ h1 {
    }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 640px), (max-height: 640px) {
    nav, .article-timetable{
       display: none;
    }   
