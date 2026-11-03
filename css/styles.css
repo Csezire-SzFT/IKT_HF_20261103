@@ -64,9 +64,10 @@ article {
 
 .article-timetable {
    display: grid;
-   grid-template-rows: auto auto;
+   grid-template-rows: auto 1fr;
    grid-template-areas: "cursetable"
                         "curselinks";
+   gap: 1rem;                     
    font-size: clamp(1.125rem, 0.696rem + 0.670vw, 1.5rem);
 }
 
