@@ -33,7 +33,7 @@ nav {
    margin: 0 20vw;
    border: 3px solid #FBC85B;
    border-radius: 10px;
-   padding: 10px;
+   padding: 5px;
    display: grid;
    grid-template-columns: 5fr 1fr 8fr 1fr 5fr;
    align-items: center;
@@ -45,6 +45,9 @@ nav {
    font-weight: bold;
 }
 
+.date-side {
+   font-size: clamp(1.125rem, 0.696rem + 0.670vw, 1.5rem);
+}
 
 article {   
    grid-area: grid-art;
@@ -67,14 +70,15 @@ article {
 #timetable {
    width: 100%;
    table-layout: fixed;
-/*   border-collapse: collapse;
-   border: 2px solid; */
+   border-collapse: collapse;
    font-weight: bold;
 }
 
-#timetable th, #timetable td {
-/*   border: 1px solid; */
+#timetable thead, #timetable tbody {
    border-bottom: 2px solid;
+}
+
+#timetable th, #timetable td {
    padding: 1.0vh 1.0vw;
 }
 
