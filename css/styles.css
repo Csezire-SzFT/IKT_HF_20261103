@@ -17,12 +17,14 @@ main {
                         "grid-nav grid-nav grid-nav"
                         "grid-lside grid-art grid-rside"
                         "grid-foot grid-foot grid-foot";
+   min-height: 100vh; /* régi böngészőkhöz */
    min-height: 100dvh;
    grid-template-rows: auto auto 1fr auto;                                         
 }
 
 header {
    grid-area: grid-head;
+   display: grid; /* régi böngészőkhöz */
    align-content: center;
    text-align: center;
    font-size: clamp(1.75rem, 0.607rem + 1.786vw, 2.75rem);
